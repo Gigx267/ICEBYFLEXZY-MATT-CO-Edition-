@@ -4,6 +4,9 @@
     <meta charset="utf-8"/>
     <title>Icebyflexy — Shop</title>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="description" content="Premium jewelry and fashion collection. Browse rings, necklaces, earrings and more."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
     <style>
@@ -15,75 +18,95 @@
             background:#0a0a0a;color:#f5f5f5;
             -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
             line-height:1.45;
+            overflow-x:hidden;
         }
         a{color:inherit;text-decoration:none}
         .container{max-width:1200px;margin:0 auto;padding:0 1rem}
 
         /* Top Nav / Progress */
-        .progress-bar{position:fixed;top:0;left:0;width:100%;height:3px;background:rgba(212,175,55,0.08);z-index:1100}
-        .progress-bar-line{height:100%;width:0;background:linear-gradient(90deg,#efece1,#f2f1ec);box-shadow:0 0 12px rgba(239,238,234,0.6);transition:width .12s linear}
+        .progress-bar{position:fixed;top:0;left:0;width:100%;height:3px;background:rgba(212,175,55,0.08);z-index:1100;will-change:contents}
+        .progress-bar-line{height:100%;width:0;background:linear-gradient(90deg,#efece1,#f2f1ec);box-shadow:0 0 12px rgba(239,238,234,0.6);transition:width .12s linear;will-change:width}
         .transparent-navbar{position:fixed;top:0;left:0;right:0;padding:1rem 0;z-index:1050;background:transparent;transition:all .25s}
         .transparent-navbar.scrolled{background:rgba(10,10,10,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(212,175,55,.12)}
         .navbar-wrapper{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-        .site-logo{font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:2px;font-size:1.25rem;color:#f7f5f0}
+        .site-logo{font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:2px;font-size:1.25rem;color:#f7f5f0;display:flex;align-items:center}
+        .site-logo img{height:1cm;border-radius:50%;opacity:90%;width:auto}
         .nav-links{display:flex;gap:1.25rem;align-items:center}
-        .nav-link{font-weight:600;font-size:.95rem;text-transform:uppercase;color:rgba(247,245,240,.9)}
-        .nav-link.active{color:#d4af37;text-shadow:0 0 10px rgba(212,175,55,.18)}
+        .nav-link{font-weight:600;font-size:.95rem;text-transform:uppercase;color:rgba(247,245,240,.9);transition:color .2s}
+        .nav-link:hover,.nav-link.active{color:#d4af37;text-shadow:0 0 10px rgba(212,175,55,.18)}
 
         /* Hero */
-        .hero{min-height:82vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:5.5rem 1rem 2rem;background:
-            linear-gradient(135deg,rgba(0,0,0,.6),rgba(20,15,10,.6)),
-            url('./b1.jpg') center/cover no-repeat fixed}
+        .hero{min-height:82vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:5.5rem 1rem 2rem;background:linear-gradient(135deg,rgba(0,0,0,.6),rgba(20,15,10,.6)),url('./b1.jpg') center/cover no-repeat fixed}
         .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:1px;color:#fff}
         .hero p{color:rgba(247,245,240,.9);margin-top:.6rem}
 
         /* Store controls */
         .controls{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin:2rem 0}
-        .search{flex:1;min-width:180px;display:flex;gap:.5rem;align-items:center;background:rgba(255,255,255,.03);padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,.03)}
+        .search{flex:1;min-width:180px;display:flex;gap:.5rem;align-items:center;background:rgba(255,255,255,.03);padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,.03);transition:all .2s}
+        .search:focus-within{border-color:rgba(212,175,55,.3);background:rgba(212,175,55,.05)}
         .search input{background:transparent;border:0;outline:none;color:inherit;padding:.5rem;font-size:1rem;width:100%}
-        .select{background:rgba(255,255,255,.03);padding:.45rem;border-radius:8px;border:1px solid rgba(255,255,255,.03);color:inherit}
+        .select{background:rgba(255,255,255,.03);padding:.45rem;border-radius:8px;border:1px solid rgba(255,255,255,.03);color:inherit;cursor:pointer;transition:all .2s}
+        .select:hover,.select:focus{border-color:rgba(212,175,55,.3);background:rgba(212,175,55,.05)}
         .badge{background:#d4af37;color:#0a0a0a;padding:.35rem .6rem;border-radius:999px;font-weight:700;font-size:.85rem}
 
         /* Products grid */
         .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2.5rem}
-        .card{background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);border:1px solid rgba(255,255,255,.04);border-radius:12px;overflow:hidden;padding:0;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s}
+        .card{background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);border:1px solid rgba(255,255,255,.04);border-radius:12px;overflow:hidden;padding:0;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s;cursor:pointer}
         .card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.6)}
-        .card-img{width:100%;height:240px;object-fit:cover;display:block}
+        .card-img{width:100%;height:240px;object-fit:cover;display:block;background:#1a1a1a}
         .card-body{padding:1rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
         .product-title{font-weight:700;color:#f7f5f0}
-        .product-meta{color:rgba(247,245,240,.76);font-size:.95rem}
+        .product-meta{color:rgba(247,245,240,.76);font-size:.95rem;text-transform:capitalize}
         .price-row{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
         .price{font-weight:700;color:#d4af37}
-        .btn{background:transparent;border:1px solid #d4af37;color:#f7f5f0;padding:.55rem .7rem;border-radius:8px;cursor:pointer;font-weight:600}
+        .btn{background:transparent;border:1px solid #d4af37;color:#f7f5f0;padding:.55rem .7rem;border-radius:8px;cursor:pointer;font-weight:600;transition:all .2s}
+        .btn:hover{background:rgba(212,175,55,.1)}
         .btn.ghost{background:transparent}
         .btn.primary{background:#d4af37;color:#0a0a0a;border-color:transparent}
+        .btn.primary:hover{background:#e5c158}
 
         /* Empty */
         .empty{padding:2rem;text-align:center;color:rgba(255,255,255,.7)}
 
         /* Cart sidebar */
-        .cart-toggle{position:fixed;right:1rem;bottom:1rem;background:#d4af37;color:#0a0a0a;padding:.8rem;border-radius:999px;z-index:1200;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.6);display:flex;gap:.6rem;align-items:center;font-weight:700}
+        .cart-toggle{position:fixed;right:1rem;bottom:1rem;background:#d4af37;color:#0a0a0a;padding:.8rem;border-radius:999px;z-index:1200;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.6);display:flex;gap:.6rem;align-items:center;font-weight:700;transition:all .2s;border:none}
+        .cart-toggle:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(0,0,0,.8)}
         .cart-sidebar{position:fixed;top:0;right:-420px;width:380px;height:100vh;background:linear-gradient(180deg,#0b0b0b,#131313);border-left:1px solid rgba(212,175,55,.08);padding:1rem;transition:right .32s;z-index:1190;display:flex;flex-direction:column;gap:1rem}
         .cart-sidebar.open{right:0}
         .cart-head{display:flex;justify-content:space-between;align-items:center}
-        .cart-items{overflow:auto;flex:1;padding-right:.25rem}
+        .cart-items{overflow-y:auto;overflow-x:hidden;flex:1;padding-right:.25rem;scrollbar-width:thin;scrollbar-color:rgba(212,175,55,.3) transparent}
+        .cart-items::-webkit-scrollbar{width:6px}
+        .cart-items::-webkit-scrollbar-track{background:transparent}
+        .cart-items::-webkit-scrollbar-thumb{background:rgba(212,175,55,.3);border-radius:3px}
         .cart-item{display:flex;gap:.6rem;padding:.6rem;border-radius:8px;border:1px solid rgba(255,255,255,.03);margin-bottom:.6rem}
-        .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:6px}
+        .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:6px;background:#1a1a1a}
         .cart-item-info{flex:1}
         .cart-footer{border-top:1px solid rgba(255,255,255,.03);padding-top:.75rem;display:flex;flex-direction:column;gap:.6rem}
         .muted{color:rgba(255,255,255,.6);font-size:.95rem}
 
         /* Modal */
-        .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1250}
+        .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1250;backdrop-filter:blur(4px);animation:fadeIn .2s}
         .modal-backdrop.show{display:flex}
-        .modal{background:#0b0b0b;border-radius:12px;padding:1rem;width:min(880px,95%);max-height:90vh;overflow:auto;border:1px solid rgba(212,175,55,.06)}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        .modal{background:#0b0b0b;border-radius:12px;padding:1rem;width:min(880px,95%);max-height:90vh;overflow:auto;border:1px solid rgba(212,175,55,.06);animation:slideUp .3s}
+        @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
         .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-        .modal img{width:100%;height:360px;object-fit:cover;border-radius:8px}
+        .modal img{width:100%;height:360px;object-fit:cover;border-radius:8px;background:#1a1a1a}
 
         /* Responsive */
         @media (max-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}}
-        @media (max-width:768px){.grid{grid-template-columns:repeat(2,1fr)}.modal-grid{grid-template-columns:1fr}.hero{padding-top:6rem}}
-        @media (max-width:480px){.grid{grid-template-columns:1fr}.search{min-width:120px}.container{padding:0 .75rem}}
+        @media (max-width:768px){
+            .grid{grid-template-columns:repeat(2,1fr)}
+            .modal-grid{grid-template-columns:1fr}
+            .hero{padding-top:6rem}
+            .cart-sidebar{width:100%;right:-100%}
+        }
+        @media (max-width:480px){
+            .grid{grid-template-columns:1fr}
+            .search{min-width:120px}
+            .container{padding:0 .75rem}
+            .controls{flex-direction:column;align-items:stretch}
+        }
     </style>
 </head>
 <body>
@@ -92,7 +115,7 @@
     <header class="transparent-navbar" id="navbar">
         <div class="container">
             <div class="navbar-wrapper">
-                <a class="site-logo" href="index.html"> <img style="height: 1cm; border-radius: 50%;opacity: 90%;" src="logo.png" alt="" srcset=""></a>
+                <a class="site-logo" href="index.html"><img src="logo.png" alt="Icebyflexy Logo"></a>
                 <nav class="nav-links">
                     <a class="nav-link" href="index.html">Home</a>
                     <a class="nav-link" href="About.html">About</a>
@@ -115,7 +138,7 @@
             <div class="controls">
                 <div class="search" role="search">
                     <span class="material-icons" style="opacity:.8">search</span>
-                    <input id="searchInput" placeholder="Search products, e.g., 'ring'"/>
+                    <input id="searchInput" placeholder="Search products, e.g., 'ring'" aria-label="Search products"/>
                 </div>
 
                 <select id="categorySelect" class="select" aria-label="Filter by category">
@@ -132,18 +155,18 @@
                 <div class="badge" id="resultsCount">0</div>
             </div>
 
-            <div id="productsGrid" class="grid" aria-live="polite"></div>
+            <div id="productsGrid" class="grid" aria-live="polite" aria-label="Products grid"></div>
 
-            <div id="emptyState" class="empty" style="display:none">No products found. Try a different search or filter.</div>
+            <div id="emptyState" class="empty" style="display:none" role="status">No products found. Try a different search or filter.</div>
         </section>
     </main>
 
-    <button id="cartToggle" class="cart-toggle" aria-haspopup="dialog">
+    <button id="cartToggle" class="cart-toggle" aria-haspopup="dialog" aria-label="Open shopping cart">
         <span class="material-icons-outlined">shopping_cart</span>
         <span id="cartCount">0</span>
     </button>
 
-    <aside id="cartSidebar" class="cart-sidebar" aria-hidden="true">
+    <aside id="cartSidebar" class="cart-sidebar" aria-hidden="true" aria-label="Shopping cart">
         <div class="cart-head">
             <div style="font-weight:700">Your Cart</div>
             <button id="closeCart" class="btn ghost" aria-label="Close cart">close</button>
@@ -162,11 +185,11 @@
     </aside>
 
     <!-- Modal -->
-    <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Product details">
         <div class="modal" role="document">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem">
                 <div style="font-weight:700" id="modalTitle">Product</div>
-                <button id="closeModal" class="btn ghost">close</button>
+                <button id="closeModal" class="btn ghost" aria-label="Close modal">close</button>
             </div>
             <div class="modal-grid">
                 <div>
@@ -176,7 +199,7 @@
                     <div id="modalPrice" style="font-weight:800;color:#d4af37;font-size:1.25rem"></div>
                     <div id="modalDescription" class="muted"></div>
                     <div style="margin-top:auto;display:flex;gap:.5rem">
-                        <input id="modalQty" type="number" min="1" value="1" style="width:80px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,.04);background:transparent;color:inherit">
+                        <input id="modalQty" type="number" min="1" value="1" aria-label="Quantity" style="width:80px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,.04);background:transparent;color:inherit">
                         <button id="modalAddBtn" class="btn primary">Add to cart</button>
                     </div>
                 </div>
@@ -184,21 +207,36 @@
         </div>
     </div>
 
-   
     <script>
-        // Product data (example). Replace/add products or fetch from API.
         const products = [
             { id: 'p001', title:'Aurelia Signet Ring', price:360, category:'rings', img:'mm (6).JPG', desc:'Classic A timepiece inspired by the depth of African heritage, engineered with refined precision and full water resistance.'},
             { id: 'p002', title:'Solstice Necklace', price:360, category:'necklaces', img:'mm (8).JPG', desc:'Classic A timepiece inspired by the depth of African heritage, engineered with refined precision and full water resistance.'},
-            { id: 'p003', title:'Evelyn Hoop Earrings', price:85, category:'earrings', img:'https://images.unsplash.com/photo-1615218241601-50f0f7d3d3f1?w=900&q=80', desc:'Lightweight hoops with subtle texture.'},
-            { id: 'p004', title:'Noir Cuff Bracelet', price:190, category:'bracelets', img:'https://images.unsplash.com/photo-1602692408196-6a7f3b8d8b1a?w=900&q=80', desc:'Matte black cuff with contrast edges.'},
-            { id: 'p005', title:'Luna Pendant', price:145, category:'necklaces', img:'https://images.unsplash.com/photo-1518882924894-3eec3d7f8b2a?w=900&q=80', desc:'Moonstone pendant in fine setting.'},
-            { id: 'p006', title:'Opal Cluster Ring', price:260, category:'rings', img:'https://images.unsplash.com/photo-1610921905513-6f3b7c9e6c71?w=900&q=80', desc:'Clustered opals with handcrafted band.'},
-            { id: 'p007', title:'Everyday Studs', price:45, category:'earrings', img:'https://images.unsplash.com/photo-1590399101702-0d0b8f41a3d6?w=900&q=80', desc:'Minimal studs for daily wear.'},
-            { id: 'p008', title:'Heritage Beaded Bracelet', price:75, category:'bracelets', img:'https://images.unsplash.com/photo-1602524209688-c1b1c6c5072a?w=900&q=80', desc:'Beaded bracelet inspired by heritage motifs.'}
+            { id: 'p003', title:'Evelyn Hoop Earrings', price:85, category:'earrings', img:'kp (7).jpeg', desc:'Lightweight hoops with subtle texture.'},
+            { id: 'p004', title:'Noir Cuff', price:190, category:'earrings', img:'kp (2).jpeg', desc:'Matte black cuff with contrast edges.'},
+            { id: 'p005', title:'Luna Earrings', price:145, category:'earrings', img:'kp (3).jpeg', desc:'Moonstone earings in fine setting.'},
+            { id: 'p006', title:'Opal Cluster', price:260, category:'earrings', img:'kp (4).jpeg', desc:'Clustered opals with handcrafted band.'},
+            { id: 'p007', title:'Everyday Studs', price:45, category:'earrings', img:'kp (5).jpeg', desc:'Minimal studs for daily wear.'},
+            { id: 'p008', title:'Heritage Earrings', price:75, category:'earrings', img:'kp (8).jpeg', desc:'Beaded bracelet inspired by heritage motifs.'},
+            { id: 'p009', title:'Opal Cluster 2', price:260, category:'earrings', img:'kp (9).jpeg', desc:'Clustered opals with handcrafted band.'},
+            { id: 'p0011', title:'Everyday Studs 2', price:45, category:'earrings', img:'kp (10).jpeg', desc:'Minimal studs for daily wear.'},
+            { id: 'p0012', title:'Heritage Earrings 2', price:75, category:'earrings', img:'kp (11).jpeg', desc:'Beaded bracelet inspired by heritage motifs.'},
+            { id: 'p0013', title:'Classic Band', price:120, category:'rings', img:'kp (12).jpeg', desc:'Timeless band ring for everyday elegance.'},
+            { id: 'p0014', title:'Stone Pendant', price:210, category:'necklaces', img:'kp (13).jpeg', desc:'Statement pendant with natural stone.'},
+            { id: 'p0015', title:'Pearl Drop', price:165, category:'earrings', img:'kp (14).jpeg', desc:'Elegant pearl drop earrings.'},
+            { id: 'p0016', title:'Golden Loop', price:95, category:'earrings', img:'kp (15).jpeg', desc:'Minimalist golden loop design.'},
+            { id: 'p0017', title:'Crystal Spark', price:185, category:'necklaces', img:'kp (16).jpeg', desc:'Crystal-studded necklace with shine.'},
+            { id: 'p0018', title:'Vintage Ring', price:280, category:'rings', img:'kp (17).jpeg', desc:'Antique-inspired ring with character.'},
+            { id: 'p0019', title:'Beaded Bracelet', price:75, category:'bracelets', img:'kp (18).jpeg', desc:'Handcrafted beaded bracelet.'},
+            { id: 'p0020', title:'Jade Earrings', price:155, category:'earrings', img:'kp (19).jpeg', desc:'Natural jade stone earrings.'},
+            { id: 'p0021', title:'Silver Chain', price:140, category:'necklaces', img:'kp (20).jpeg', desc:'Delicate silver chain necklace.'},
+            { id: 'p0022', title:'Emerald Ring', price:320, category:'rings', img:'kp (21).jpeg', desc:'Rich emerald stone setting.'},
+            { id: 'p0023', title:'Coral Studs', price:110, category:'earrings', img:'kp (22).jpeg', desc:'Vibrant coral-colored studs.'},
+            { id: 'p0024', title:'Gold Bangle', price:195, category:'bracelets', img:'kp (23).jpeg', desc:'Classic gold bangle bracelet.'},
+            { id: 'p0025', title:'Diamond Accent', price:405, category:'necklaces', img:'kp (24).jpeg', desc:'Necklace with diamond accents.'},
+            { id: 'p0026', title:'Sapphire Ring', price:375, category:'rings', img:'kp (25).jpeg', desc:'Deep blue sapphire ring.'},
+            { id: 'p0027', title:'Pearl Bracelet', price:225, category:'bracelets', img:'kp (26).jpeg', desc:'Elegant pearl strand bracelet.'}
         ];
 
-        // State
         let cart = JSON.parse(localStorage.getItem('iceby_cart') || '{}');
 
         // Elements
@@ -217,7 +255,6 @@
         const clearCartBtn = document.getElementById('clearCartBtn');
         const checkoutBtn = document.getElementById('checkoutBtn');
 
-        // Modal elements
         const modalBackdrop = document.getElementById('modalBackdrop');
         const modalTitle = document.getElementById('modalTitle');
         const modalImage = document.getElementById('modalImage');
@@ -227,17 +264,17 @@
         const modalAddBtn = document.getElementById('modalAddBtn');
         const closeModal = document.getElementById('closeModal');
 
-        // Init categories
+        // Populate categories
         (function populateCategories(){
             const cats = Array.from(new Set(products.map(p=>p.category)));
             cats.forEach(c=>{
                 const opt = document.createElement('option');
-                opt.value = c; opt.textContent = c.charAt(0).toUpperCase() + c.slice(1);
+                opt.value = c;
+                opt.textContent = c.charAt(0).toUpperCase() + c.slice(1);
                 categorySelect.appendChild(opt);
             });
         })();
 
-        // Render products
         function formatPrice(n){ return 'N' + n.toFixed(2); }
 
         function renderProducts(){
@@ -270,8 +307,8 @@
                             <div class="price-row">
                                 <div class="price">${formatPrice(p.price)}</div>
                                 <div style="display:flex;gap:.5rem">
-                                    <button class="btn ghost" data-action="view" data-id="${p.id}">View</button>
-                                    <button class="btn primary" data-action="add" data-id="${p.id}">Add</button>
+                                    <button class="btn ghost" data-action="view" data-id="${p.id}" aria-label="View ${p.title}">View</button>
+                                    <button class="btn primary" data-action="add" data-id="${p.id}" aria-label="Add ${p.title} to cart">Add</button>
                                 </div>
                             </div>
                         </div>
@@ -282,10 +319,8 @@
             resultsCount.textContent = list.length;
         }
 
-        // Find product
         function getProduct(id){ return products.find(p=>p.id===id); }
 
-        // Cart management
         function saveCart(){ localStorage.setItem('iceby_cart', JSON.stringify(cart)); }
         function addToCart(id, qty=1){
             if(!cart[id]) cart[id] = 0;
@@ -300,9 +335,7 @@
         }
         function setCartQty(id, qty){
             if(qty <= 0) removeFromCart(id);
-            else cart[id] = qty;
-            saveCart();
-            renderCart();
+            else { cart[id] = qty; saveCart(); renderCart(); }
         }
         function clearCart(){ cart = {}; saveCart(); renderCart(); }
 
@@ -326,9 +359,9 @@
                             <div style="font-weight:700">${p.title}</div>
                             <div class="muted">${formatPrice(p.price)} &times; ${qty}</div>
                             <div style="margin-top:.5rem;display:flex;gap:.4rem">
-                                <button class="btn" data-action="dec" data-id="${id}">-</button>
-                                <button class="btn" data-action="inc" data-id="${id}">+</button>
-                                <button class="btn" data-action="rem" data-id="${id}">Remove</button>
+                                <button class="btn" data-action="dec" data-id="${id}" aria-label="Decrease ${p.title} quantity">-</button>
+                                <button class="btn" data-action="inc" data-id="${id}" aria-label="Increase ${p.title} quantity">+</button>
+                                <button class="btn" data-action="rem" data-id="${id}" aria-label="Remove ${p.title}">Remove</button>
                             </div>
                         </div>
                     `;
@@ -339,16 +372,12 @@
             cartSubtotal.textContent = formatPrice(subtotal);
         }
 
-        // Open / close cart
         cartToggle.addEventListener('click', ()=>{ cartSidebar.classList.add('open'); cartSidebar.setAttribute('aria-hidden','false'); });
         closeCart.addEventListener('click', ()=>{ cartSidebar.classList.remove('open'); cartSidebar.setAttribute('aria-hidden','true'); });
-        clearCartBtn.addEventListener('click', ()=>{ clearCart(); });
+        clearCartBtn.addEventListener('click', clearCart);
 
-        checkoutBtn.addEventListener('click', ()=>{
-            alert('Proceed to checkout - implement payment flow.');
-        });
+        checkoutBtn.addEventListener('click', ()=>{ alert('Proceed to checkout - implement payment flow.'); });
 
-        // Delegation for product grid buttons
         productsGrid.addEventListener('click', (e)=>{
             const btn = e.target.closest('button');
             if(!btn) return;
@@ -358,7 +387,6 @@
             if(action === 'view') openModal(id);
         });
 
-        // Cart buttons delegation
         cartItemsEl.addEventListener('click', (e)=>{
             const btn = e.target.closest('button');
             if(!btn) return;
@@ -369,7 +397,6 @@
             if(act === 'rem') removeFromCart(id);
         });
 
-        // Modal actions
         function openModal(id){
             const p = getProduct(id);
             if(!p) return;
@@ -382,9 +409,7 @@
             modalAddBtn.dataset.id = id;
             modalBackdrop.classList.add('show');
         }
-        modalBackdrop.addEventListener('click', (e)=>{
-            if(e.target === modalBackdrop) modalBackdrop.classList.remove('show');
-        });
+        modalBackdrop.addEventListener('click', (e)=>{ if(e.target === modalBackdrop) modalBackdrop.classList.remove('show'); });
         closeModal.addEventListener('click', ()=>modalBackdrop.classList.remove('show'));
         modalAddBtn.addEventListener('click', ()=>{
             const id = modalAddBtn.dataset.id;
@@ -393,16 +418,13 @@
             modalBackdrop.classList.remove('show');
         });
 
-        // Search & filters
         [searchInput, categorySelect, sortSelect].forEach(el=>{
             el.addEventListener('input', debounce(renderProducts, 200));
             el.addEventListener('change', renderProducts);
         });
 
-        // Debounce helper
-        function debounce(fn, wait){ let t; return function(){ clearTimeout(t); t = setTimeout(()=>fn.apply(this,arguments), wait); } }
+        function debounce(fn, wait){ let t; return function(){ clearTimeout(t); t = setTimeout(()=>fn.apply(this,arguments), wait); }; }
 
-        // Persist scroll progress
         window.addEventListener('scroll', ()=> {
             const doc = document.documentElement;
             const height = doc.scrollHeight - doc.clientHeight;
@@ -412,16 +434,13 @@
             if(window.scrollY > 40) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
         }, { passive:true });
 
-        // Simple keyboard shortcuts
         document.addEventListener('keydown', (e)=>{
             if(e.key === 'Escape'){ modalBackdrop.classList.remove('show'); cartSidebar.classList.remove('open'); }
         });
 
-        // Initialise UI
         renderProducts();
         renderCart();
 
-        // Hydrate cart if items reference missing products, clean up
         (function sanitizeCart(){
             let changed=false;
             Object.keys(cart).forEach(id=>{ if(!getProduct(id)){ delete cart[id]; changed=true; }});
